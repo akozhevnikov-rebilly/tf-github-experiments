@@ -1,8 +1,8 @@
-data "github_repository" "active" {
+data "github_repository" "default" {
   name = "tf-github-experiments"
 }
 
-resource "github_branch" "default" {
-  repository = data.github_repository.active.name
+data "github_branch" "default" {
+  repository = data.github_repository.default.name
   branch = "main"
 }
