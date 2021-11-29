@@ -10,6 +10,5 @@ terraform {
 }
 
 provider "github" {
-  owner = "Alexander Kozhevnikov"
   token = var.github_token
 }
