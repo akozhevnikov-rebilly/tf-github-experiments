@@ -1,6 +1,6 @@
-resource "github_branch_protection" "default" {
+resource "github_branch_protection" "any" {
   repository_id = github_repository.default.name
-  pattern = github_branch.default.branch
+  pattern = "*"
   required_status_checks {
     strict   = true
     contexts = ["DevEnv Infrastructure/Apply infrastructure changes"]
