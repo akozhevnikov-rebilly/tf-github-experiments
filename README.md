@@ -1,1 +1,1 @@
-## akozhevnikov-rebilly/tf-github-experiments
+## Terraform experiments with GitHub provider
