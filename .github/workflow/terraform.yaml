@@ -2,6 +2,8 @@ name: DevEnv Infrastructure
 
 on:
   pull_request:
+  push:
+    branches: ['main']
 
 jobs:
   apply:
@@ -12,7 +14,6 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Dry run Terraform
-        if: github.event_name == 'pull_request'
         working-directory: ${{ github.workspace }}/terraform/devenv
         env:
           TF_IN_AUTOMATION: 'true'
