@@ -1,0 +1,22 @@
+name: DevEnv Infrastructure
+
+on:
+  pull_request:
+
+jobs:
+  apply:
+    name: Apply infrastructure changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ${{ github.repository }}
+        uses: actions/checkout@v2
+
+      - name: Dry run Terraform
+        if: github.event_name == 'pull_request'
+        working-directory: ${{ github.workspace }}/terraform/devenv
+        env:
+          TF_IN_AUTOMATION: 'true'
+          TF_CLI_CONFIG_FILE: .terraformrc
+        timeout-minutes: 60
+        run: |
+          terraform plan
