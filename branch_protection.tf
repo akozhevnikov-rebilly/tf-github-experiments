@@ -3,6 +3,6 @@ resource "github_branch_protection" "default" {
   pattern = github_branch.default.branch
   required_status_checks {
     strict   = true
-    contexts = ["terraform/apply"]
+    contexts = ["DevEnv Infrastructure/apply"]
   }
 }
