@@ -2,8 +2,6 @@ name: DevEnv Infrastructure
 
 on:
   pull_request:
-  push:
-    branches: ['main']
 
 jobs:
   apply:
@@ -12,12 +10,23 @@ jobs:
     steps:
       - name: Checkout ${{ github.repository }}
         uses: actions/checkout@v2
-
-      - name: Dry run Terraform
-        working-directory: ${{ github.workspace }}/terraform/devenv
+      
+      - name: Prepare Terraform
         env:
           TF_IN_AUTOMATION: 'true'
           TF_CLI_CONFIG_FILE: .terraformrc
-        timeout-minutes: 60
+        run: |
+          set -e
+
+          cat <<EOF > .auto.tfvars
+          github_token = "${{ secrets.PAT }}"
+          EOF
+
+          terraform init -input=false
+
+      - name: Dry run Terraform
+        env:
+          TF_IN_AUTOMATION: 'true'
+          TF_CLI_CONFIG_FILE: .terraformrc
         run: |
           terraform plan
