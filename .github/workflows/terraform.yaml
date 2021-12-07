@@ -2,8 +2,6 @@ name: DevEnv Infrastructure
 
 on:
   pull_request:
-  push:
-    branches: ['main']
 
 jobs:
   apply:
@@ -14,10 +12,8 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Dry run Terraform
-        working-directory: ${{ github.workspace }}/terraform/devenv
         env:
           TF_IN_AUTOMATION: 'true'
           TF_CLI_CONFIG_FILE: .terraformrc
-        timeout-minutes: 60
         run: |
           terraform plan
