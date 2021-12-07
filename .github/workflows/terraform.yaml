@@ -10,6 +10,19 @@ jobs:
     steps:
       - name: Checkout ${{ github.repository }}
         uses: actions/checkout@v2
+      
+      - name: Prepare Terraform
+        env:
+          TF_IN_AUTOMATION: 'true'
+          TF_CLI_CONFIG_FILE: .terraformrc
+        run: |
+          set -e
+
+          cat <<EOF > .auto.tfvars
+          github_token = "${{ secrets.PAT }}"
+          EOF
+
+          terraform init -input=false
 
       - name: Dry run Terraform
         env:
