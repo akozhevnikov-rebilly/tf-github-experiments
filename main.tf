@@ -1,6 +1,7 @@
 resource "github_repository" "default" {
   name       = "tf-github-experiments"
-  visibility = "private"
+  visibility = "public"
+  vulnerability_alerts = true
 }
 
 resource "github_branch" "default" {
